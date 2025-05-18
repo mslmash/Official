@@ -88,6 +88,27 @@ body{
     display: flex;
 }
 
+.header h1{
+    color: #fff;
+    padding-left: 25%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+    padding-top: 40px;
+}
+
+
+@media(max-width:700px){
+    .row{
+        display: grid;
+    }
+
+    .header h1{
+        font-size: 40px;
+        padding-left: 10%;
+
+    }
+}
+
 a{
     padding: 5px;
     text-decoration: none;
@@ -118,13 +139,6 @@ a:hover{
     height: 80%;
 }
 
-.header h1{
-    color: #fff;
-    padding-left: 25%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 50px;
-    padding-top: 40px;
-}
 
 .link{
     background: transparent;
@@ -141,6 +155,13 @@ a:hover{
     color: #fff;
     display: block;
 }
+
+@media(max-width:700px){
+    .footer{
+        padding-left: 30%;
+    }
+}
+
 
 .correct{
     background: #9aeabc;
