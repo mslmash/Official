@@ -9,6 +9,15 @@ body{
     background: #001e4d;
 }
 
+.back a{
+    color: #fff;
+    padding-left: 100px;
+    
+}
+.bi-arrow-left{
+    color: white;
+    font-size: 24px;
+}
 .app{
     background: #fff;
     width: 90%;
@@ -16,6 +25,7 @@ body{
     margin: 100px auto 0;
     border-radius: 10px;
     padding: 30px;
+    margin-bottom: 50px;
 }
 
 .app h1{
@@ -88,12 +98,33 @@ body{
     display: flex;
 }
 
+iframe{
+    border-radius: 10%;
+    height: 300px;
+    width: 500px;
+}
+
 .header h1{
     color: #fff;
     padding-left: 25%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 50px;
     padding-top: 40px;
+}
+
+.hl-col{
+    flex-basis: 40px;
+    padding-left: 50px;
+    padding-top: 40px;
+}
+
+.hr-col{
+    flex-basis: 60px;
+    padding-left: 20px;
+    padding-top: 40px;
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 36px;
 }
 
 
@@ -107,13 +138,24 @@ body{
         padding-left: 10%;
 
     }
+
+    iframe{
+        border-radius: 10%;
+        height: 200px;
+        width: 300px;
+    }
+
+    .hr-col{
+        font-size: 32px;
+        padding-left: 10%;
+    }
 }
 
 a{
     padding: 5px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 25px;
     color: #222;
 }
 
@@ -170,3 +212,4 @@ a:hover{
 .incorrect{
     background: #ff9393;
 }
+

@@ -24,7 +24,7 @@ const questions =[
 
 
     {
-        question:"Which is the largest animal in the world?",
+        question:"Which is the largest dessert in the world?",
         answers:[
             {text:"kalahari" ,correct:false},
             {text:"Gobi" ,correct:false},
