@@ -9,6 +9,7 @@ body{
     background: #001e4d;
 }
 
+<<<<<<< HEAD
 
 /* Navbar */
 
@@ -102,6 +103,8 @@ body{
 
 
 
+=======
+>>>>>>> 833ab6cd6bdbdafbba76a3e59d55a50ffb3ef8fe
 .back a{
     color: #fff;
     padding-left: 100px;
@@ -182,11 +185,17 @@ body{
     background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),
     url(images/background.jpg);
     background-position: center;
+<<<<<<< HEAD
     position: relative;
     height: auto;
     background-repeat: repeat-y; /* This makes the image repeat vertically */
     background-size: auto; /* Optional: Ensures the image isn't stretched or shrunk */
 
+=======
+    background-size: cover;
+    position: relative;
+    height: auto;
+>>>>>>> 833ab6cd6bdbdafbba76a3e59d55a50ffb3ef8fe
 }
 
 .row{
@@ -308,6 +317,7 @@ a:hover{
     background: #ff9393;
 }
 
+<<<<<<< HEAD
 .download-button {
     display: inline-block;
     padding: 10px 20px;
@@ -455,3 +465,5 @@ a:hover{
 .arrow:hover{
     color: #fff;
 }
+=======
+>>>>>>> 833ab6cd6bdbdafbba76a3e59d55a50ffb3ef8fe
