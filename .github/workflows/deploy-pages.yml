@@ -1,0 +1,46 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # <--- IMPORTANT: Change to 'master' if that's your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for actions/deploy-pages@v4 to push to gh-pages branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true # <--- This ensures Git LFS files are downloaded
+          fetch-depth: 0 # <--- Important for LFS to work correctly
+
+      # --- Optional: If you have a build step for a static site generator (e.g., Jekyll, Hugo, React, Vue) ---
+      # If your site is just plain HTML/CSS/JS in the root, you can skip this section.
+      # If you use a framework, uncomment and adapt these steps.
+      # Example for a simple build (e.g., if your site output goes into a 'build' or 'dist' folder):
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20' # Or your desired Node.js version
+      # - name: Install dependencies
+      #   run: npm install
+      # - name: Build site
+      #   run: npm run build # Adjust this command based on your project's build script
+      # --- End Optional Build Step ---
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Path to your built site or static files.
+          # - If your site is pure HTML/CSS/JS in the root: use './'
+          # - If using a static site generator (like Jekyll's _site, Hugo's public, React's build, Vue's dist):
+          #   Change this to your build output directory, e.g., './_site', './public', './build', './dist'
+          path: './' # <--- Adjust this path if your built site is in a subdirectory
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
