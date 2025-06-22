@@ -1,46 +1,86 @@
+# This workflow deploys your static site to GitHub Pages,
+# ensuring Git LFS tracked files are correctly materialized.
+
 name: Deploy GitHub Pages
 
 on:
   push:
     branches:
-      - main # <--- IMPORTANT: Change to 'master' if that's your default branch
+      - main # <--- IMPORTANT: Change this to your default branch (e.g., 'master') if it's not 'main'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Set permissions for the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write   # Required for actions/deploy-pages@v4 to push to gh-pages branch
+  pages: write      # Required for actions/deploy-pages@v4 to publish pages
+  id-token: write   # Required for OIDC authentication by actions/deploy-pages@v4 (modern deployments)
 
 jobs:
+  # Single deploy job since we're just deploying a static site
   deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # Required for actions/deploy-pages@v4 to push to gh-pages branch
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # Use a recent version of the checkout action
         with:
-          lfs: true # <--- This ensures Git LFS files are downloaded
-          fetch-depth: 0 # <--- Important for LFS to work correctly
+          lfs: true        # <--- CRUCIAL: This ensures Git LFS files are downloaded
+          fetch-depth: 0   # <--- CRUCIAL: Fetches all history, necessary for LFS to work properly
 
-      # --- Optional: If you have a build step for a static site generator (e.g., Jekyll, Hugo, React, Vue) ---
-      # If your site is just plain HTML/CSS/JS in the root, you can skip this section.
-      # If you use a framework, uncomment and adapt these steps.
-      # Example for a simple build (e.g., if your site output goes into a 'build' or 'dist' folder):
+      # --- Optional: Build Steps for Static Site Generators (e.g., Jekyll, Hugo, React, Vue) ---
+      # If your site is just plain HTML/CSS/JS files directly in the root or a simple folder,
+      # you can DELETE or COMMENT OUT this entire 'Optional Build Steps' section.
+      # If you use a framework, UNCOMMENT and ADAPT these steps.
+
+      # Example for a Node.js-based project (e.g., React, Vue, Next.js, Eleventy):
       # - name: Setup Node.js
       #   uses: actions/setup-node@v4
       #   with:
-      #     node-version: '20' # Or your desired Node.js version
+      #     node-version: '20' # Specify your Node.js version (e.g., '16', '18', '20')
+      #     cache: 'npm'       # Caches npm dependencies to speed up builds
+      #
       # - name: Install dependencies
       #   run: npm install
+      #
       # - name: Build site
-      #   run: npm run build # Adjust this command based on your project's build script
-      # --- End Optional Build Step ---
+      #   # Change this command based on your project's build script
+      #   # E.g., 'npm run build' for React/Vue, 'npx @11ty/eleventy' for Eleventy, etc.
+      #   run: npm run build
+
+      # Example for a Ruby-based Jekyll project:
+      # - name: Setup Ruby
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: '3.x' # Use your Jekyll's required Ruby version
+      #     bundler-cache: true # Caches gems
+      #
+      # - name: Build Jekyll site
+      #   # Replace with your Jekyll build command, e.g., 'bundle exec jekyll build --destination ./_site'
+      #   run: bundle exec jekyll build --destination ./_site
+
+      # --- End Optional Build Steps ---
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5 # Configures the GitHub Pages environment
+        # This step is generally not required if your site is simple and output to the root of the repo,
+        # but it's good practice for the actions/deploy-pages to be fully set up.
 
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # Uploads your site as an artifact
         with:
-          # Path to your built site or static files.
-          # - If your site is pure HTML/CSS/JS in the root: use './'
-          # - If using a static site generator (like Jekyll's _site, Hugo's public, React's build, Vue's dist):
-          #   Change this to your build output directory, e.g., './_site', './public', './build', './dist'
-          path: './' # <--- Adjust this path if your built site is in a subdirectory
+          # <--- IMPORTANT: Adjust this path based on your site's structure/build output ---
+          #
+          # - If your site's HTML, CSS, JS, and assets (including LFS) are directly in the root of your repo:
+          #   path: './'
+          #
+          # - If you used a static site generator and your build output is in a specific folder:
+          #   (e.g., Jekyll's '_site', Hugo's 'public', React's 'build', Vue's 'dist', Next.js's 'out')
+          #   Change this path to that folder, e.g., 'path: './_site'' or 'path: './build''
+          #
+          path: './' # <--- Default: Assumes your static files are in the root of the repo. Adjust as needed!
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # Deploys the uploaded artifact to GitHub Pages
