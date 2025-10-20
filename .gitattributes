@@ -3,3 +3,4 @@ files/**/* filter=lfs diff=lfs merge=lfs -text
 videos/**/* filter=lfs diff=lfs merge=lfs -text
 images/**/* filter=lfs diff=lfs merge=lfs -text
 files/Soper.pdf filter=lfs diff=lfs merge=lfs -text
+files/Maam__Mashila_O_LEVEL_PAPER_2_REVISION.pdf filter=lfs diff=lfs merge=lfs -text
